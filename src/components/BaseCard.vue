@@ -12,9 +12,14 @@
   
   <style scoped>
   .card {
-    background-color: #011F35;
+    background-color: #023A6233;
     padding: 20px 32px 20px 32px;
     border-radius: 16px;
+    overflow: hidden;
   }
+
+
+
+ 
   </style>
   
