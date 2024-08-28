@@ -4,18 +4,32 @@
     <h1>The Magnificent Seven Companies</h1>
   </div>
 
-  <div>
-    <BaseCard class="single-card-container">
-      <SingleCard v-for="(card, index) in cards" :key="index" :img="card.img" :company="card.company"></SingleCard>
-    </BaseCard>
-  </div>
+  <div class="content-section">
+    <div>
+      <BaseCard class="single-card-container">
+        <SingleCard v-for="(item, index) in data" :key="index" :img="item.img" :company="item.company"></SingleCard>
+      </BaseCard>
+    </div>
 
+    <div class="middle-section">
+      <BaseCard class="lighter-bg"></BaseCard>
+      <BaseCard class="lighter-bg"></BaseCard>
+    </div>
+
+    <div class="lower-section">
+      <BaseCard class="lighter-bg"></BaseCard>
+      <BaseCard class="lighter-bg"></BaseCard>
+      <BaseCard class="lighter-bg"></BaseCard>
+    </div>
+  </div>
 </template>
 
 <script>
 import BaseCard from './components/BaseCard.vue'
 import { stockService } from '@/services/stockService';
 import SingleCard from './components/SingleCard.vue';
+import data from '@/services/stockData';
+
 
 export default {
   name: 'App',
@@ -25,27 +39,30 @@ export default {
   },
   data() {
     return {
-      cards: [
-        { img: '/img/apple.png', company: 'Apple' },
-        { img: '/img/meta.png', company: 'Meta' },
-        { img: '/img/microsoft.png', company: 'Microsoft' },
-        { img: '/img/google.png', company: 'Google' },
-        { img: '/img/amazon.png', company: 'Amazon' },
-        { img: '/img/tesla.png', company: 'Tesla' },
-      ]
+      data: data,
     };
   },
 
   async created() {
-    this.data = await stockService.getRevenue('$AAPL');
-    console.log('Loaded data', this.data);
+    for (let index = 0; index < data.length; index++) {
+      
+      const company = data[index];
+      console.log(company.gidNr);
+      let allData = await stockService.fetchData(company.gidNr);
+      data[index].quarters = allData[2];
+      data[index].revenue = allData[data[index].revenueLine];
+      data[index].grossMargin = allData[data[index].grossMarginLine];
+      data[index].netIncome = allData[data[index].netIncomeLine];
+    }
+    console.log(data);
   }
 }
+
+
 </script>
 
 <style>
 body {
-
   margin: 0;
 }
 
@@ -89,5 +106,26 @@ h2 {
 .arrow-right {
   height: 32px;
   width: 32px;
+}
+
+.lighter-bg {
+  background-color: #011F35 !important;
+}
+
+.content-section {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.middle-section {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.lower-section {
+  display: flex;
+  justify-content: space-between;
 }
 </style>

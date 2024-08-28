@@ -1,0 +1,9 @@
+[
+    {"gidNr": "1248043629", "img": "/img/apple.png", "company": "Apple", "quarters": [], "revenue": [], "revenueLine": 4, "netIncome": [], "netIncomeLine": 35, "grossMargin": [], "grossMarginLine": 22},
+    {"gidNr": "1277615936", "img": "/img/meta.png", "company": "Meta", "quarters": [], "revenue": [], "revenueLine": 4, "netIncome": [], "netIncomeLine": 26, "grossMargin": [], "grossMarginLine": 10},
+    {"gidNr": "244946188", "img": "/img/microsoft.png", "company": "Microsoft", "quarters": [], "revenue": [], "revenueLine": 8, "netIncome": [], "netIncomeLine": 29, "grossMargin": [], "grossMarginLine": 15},
+    {"gidNr": "561150333", "img": "/img/google.png", "company": "Google", "quarters": [], "revenue": [], "revenueLine": 4, "netIncome": [], "netIncomeLine": 40, "grossMargin": [], "grossMarginLine": 24},
+    {"gidNr": "1790479069", "img": "/img/amazon.png", "company": "Amazon", "quarters": [], "revenue": [], "revenueLine": 8, "netIncome": [], "netIncomeLine": 40, "grossMargin": [], "grossMarginLine": 14},
+    {"gidNr": "674086900", "img": "/img/tesla.png", "company": "Tesla", "quarters": [], "revenue": [], "revenueLine": 12, "netIncome": [], "netIncomeLine": 43, "grossMargin": [], "grossMarginLine": 25},
+    {"gidNr": "838783939", "img": "/img/tesla.png", "company": "NVidia", "quarters": [], "revenue": [], "revenueLine": 4, "netIncome": [], "netIncomeLine": 28, "grossMargin": [], "grossMarginLine": 10}
+]
