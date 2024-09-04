@@ -5,14 +5,14 @@
       <h2 class="text-wh">{{ company }}</h2>
     </div>
     <div class="single-card-content">
-      <span class="text-wh">Revenue Q1 2024</span>
+      <span class="text-wh">{{ revenueText }}</span>
       <div class="revenue-numbers">
         <div class="text-wh">
-          38.52
+          {{ revenue }}
         </div>
         <div class="revenue-result">
-          <span class="text-wh">+1,06 </span>
-          <span class="text-wh">2.83 %</span>
+          <span class="text-wh">{{ revenuePoints }} </span>
+          <span class="text-wh">{{ revenuePercent }} %</span>
         </div>
       </div>
       <span class="text-wh">In Bill USD</span>
@@ -23,7 +23,7 @@
 <script>
 export default {
   name: 'SingleCard',
-  props: ['img', 'company']
+  props: ['img', 'company', 'revenueText' ,'revenue' , 'revenuePoints' ,'revenuePercent']
 }
 </script>
 

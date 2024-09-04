@@ -5,18 +5,26 @@
   </div>
 
   <div class="content-section">
-    <div>
+    <div v-if="dataLoaded">
       <BaseCard class="single-card-container">
-        <SingleCard v-for="(item, index) in data" :key="index" :img="item.img" :company="item.company"></SingleCard>
+        <SingleCard  v-for="(item, index) in data" 
+        :key="index" 
+        :img="item.img" 
+        :company="item.company" 
+        :revenueText="item.quarters[item.quarters.length - 1]" 
+        :revenue="item.revenue[item.revenue.length - 1]"
+        :revenuePoints="item.revenuePoints"
+        :revenuePercent="item.revenuePercent">
+      </SingleCard>
       </BaseCard>
     </div>
 
-    <div class="middle-section">
+    <div v-if="dataLoaded" class="middle-section">
       <BaseCard class="lighter-bg"></BaseCard>
       <BaseCard class="lighter-bg"></BaseCard>
     </div>
 
-    <div class="lower-section">
+    <div v-if="dataLoaded" class="lower-section">
       <BaseCard class="lighter-bg"></BaseCard>
       <BaseCard class="lighter-bg"></BaseCard>
       <BaseCard class="lighter-bg"></BaseCard>
@@ -31,6 +39,7 @@ import SingleCard from './components/SingleCard.vue';
 import data from '@/services/stockData';
 
 
+
 export default {
   name: 'App',
   components: {
@@ -40,12 +49,13 @@ export default {
   data() {
     return {
       data: data,
+      dataLoaded: false ,
+      revenue: 0,
     };
   },
 
   async created() {
     for (let index = 0; index < data.length; index++) {
-      
       const company = data[index];
       console.log(company.gidNr);
       let allData = await stockService.fetchData(company.gidNr);
@@ -54,10 +64,29 @@ export default {
       data[index].grossMargin = allData[data[index].grossMarginLine];
       data[index].netIncome = allData[data[index].netIncomeLine];
     }
+    
+    calcRevenueDiference();
     console.log(data);
+    this.dataLoaded = true ;
   }
+
+  
 }
 
+function calcRevenueDiference() {
+  for (let index = 0; index < data.length; index++) {
+    const company = data[index];
+    const currentRevenue = parseFloat(company.revenue[company.revenue.length - 1].replace(/,/g, ''));
+    const previousRevenue = parseFloat(company.revenue[company.revenue.length - 2].replace(/,/g, ''));
+    console.log('Current Revenue:', company.revenue[company.revenue.length - 1]);
+    console.log('Previous Revenue:', company.revenue[company.revenue.length - 2]);
+    //point calc
+    data[index].revenuePoints = currentRevenue - previousRevenue;
+    //percent calc
+    data[index].revenuePercent = ((data[index].revenue[data[index].revenue.length - 1] - data[index].revenue[data[index].revenue.length - 2]) / data[index].revenue[data[index].revenue.length - 2]) * 100 ;
+  }
+  
+}
 
 </script>
 
